@@ -742,7 +742,7 @@
     Transform.getMatrix = function(element) {
       var R_MATRIX_FN = /matrix(?:3d)?\(([\s\S]+?)\)/gi;
 
-      var transformMatrix = window.getComputedStyle(element).transform,
+      var transformMatrix = window.getComputedStyle(element).transform;
       var is3D = transformMatrix.indexOf('matrix3d') === 0;
       var matrixArgs = R_MATRIX_FN.exec(transformMatrix)[1];
 
