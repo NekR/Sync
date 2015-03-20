@@ -7426,10 +7426,10 @@ this,c=e._values.slice();e._keys.slice().forEach(function(d,f){a.call(b,d,c[f],e
 
       var transformMatrix = window.getComputedStyle(element).transform;
       var is3D = transformMatrix.indexOf('matrix3d') === 0;
-      var matrixArgs = R_MATRIX_FN.exec(transformMatrix)[1];
+      var matrixArgs = R_MATRIX_FN.exec(transformMatrix);
 
       if (matrixArgs) {
-        matrixArgs = matrixArgs.split(', ').map(function(val) { return +val });
+        matrixArgs = matrixArgs[1].split(', ').map(function(val) { return +val });
       } else {
         matrixArgs = [0, 0, 0, 0, 0, 0];
       }
