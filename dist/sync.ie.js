@@ -5535,7 +5535,8 @@ this,c=e._values.slice();e._keys.slice().forEach(function(d,f){a.call(b,d,c[f],e
     });
 
     Transform.prototype.getValue = function(key, index) {
-      return parseFloat(this.store[key].val[index | 0]);
+      var val = this.store[key] ? this.store[key].val[index | 0] : 0;
+      return parseFloat(val);
     };
 
     Transform.prototype.parseString = function(string) {
@@ -5557,9 +5558,14 @@ this,c=e._values.slice();e._keys.slice().forEach(function(d,f){a.call(b,d,c[f],e
       var R_MATRIX_FN = /matrix(?:3d)?\(([\s\S]+?)\)/gi;
 
       var transformMatrix = window.getComputedStyle(element).transform,
-        is3D = transformMatrix.indexOf('matrix3d') === 0,
-        matrixArgs = R_MATRIX_FN.exec(transformMatrix)[1]
-          .split(', ').map(function(val) { return +val });
+      var is3D = transformMatrix.indexOf('matrix3d') === 0;
+      var matrixArgs = R_MATRIX_FN.exec(transformMatrix)[1];
+
+      if (matrixArgs) {
+        matrixArgs = matrixArgs.split(', ').map(function(val) { return +val });
+      } else {
+        matrixArgs = [0, 0, 0, 0, 0, 0];
+      }
 
       return {
         matrix: matrixArgs,
