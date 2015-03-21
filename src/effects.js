@@ -749,7 +749,7 @@
       if (matrixArgs) {
         matrixArgs = matrixArgs[1].split(', ').map(function(val) { return +val });
       } else {
-        matrixArgs = [0, 0, 0, 0, 0, 0];
+        matrixArgs = [1, 0, 0, 1, 0, 0];
       }
 
       return {
@@ -779,10 +779,14 @@
 
       matrix = decomposeMatrix2d(data.matrix);
 
-      var transform = matrix.reduce(function(result, transform) {
-        result[transform[0]] = transform[1];
-        return result;
-      }, {});
+      if (matrix) {
+        var transform = matrix.reduce(function(result, transform) {
+          result[transform[0]] = transform[1];
+          return result;
+        }, {});
+      } else {
+        transform = {};
+      }
 
       return new Transform(transform);
     };
